@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decifrando a IA: Guia Prático para Criar o Prompt Perfeito</title>
+    <style>
+        /* Reset e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f7fa;
+            overflow-x: hidden;
+        }
+
+        /* Container principal */
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Menu lateral */
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 30px 25px;
+            background: rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.4em;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .sidebar-header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            border-left-color: #e74c3c;
+        }
+
+        .nav-link.active {
+            background: rgba(255,255,255,0.15);
+            border-left-color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Conteúdo principal */
+        .content-wrapper {
+            flex: 1;
+            margin-left: 320px;
+            background: url('background-conteudo2.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .content-wrapper::before {
+    background: none;
+}
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 40px;
+            min-height: calc(100vh - 80px);
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+        .text-overlay-box {
+    background: rgba(255,255,255,0.85); /* branco translúcido */
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border: 1px solid #e0e6ed;
+    backdrop-filter: blur(8px); /* leve efeito de vidro fosco, opcional */
+}
+
+        /* Seção de Cabeçalho */
+        .header-section {
+            background: url('background-cabecalho.png') no-repeat center top;
+            background-size: cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+    background: none;
+}
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .header-content h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            line-height: 1.2;
+        }
+
+        .header-content .author {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .header-content .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e74c3c;
+            display: flex;
+            align-items: center;
+        }
+        
+        h3 {
+             margin-top: 40px; margin-bottom: 25px; color: #2c3e50; font-size: 1.6em;
+        }
+        .header-content {
+    margin-top: 150px; /* Ajuste o valor conforme necessário para o espaçamento ideal */
+}
+
+        /* Rodapé */
+        .footer {
+            background: url('rodape.png') no-repeat center center;
+            background-size: cover;
+            height: 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer::before {
+    background: none;
+}
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9em;
+        }
+
+        /* Acordeão */
+        .accordion {
+            margin-bottom: 30px;
+        }
+
+        .accordion-item {
+            border: 1px solid #e0e6ed;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .accordion-header {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 20px 25px;
+            cursor: pointer;
+            font-weight: 600;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, #2980b9 0%, #1f618d 100%);
+        }
+
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.5em;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active::after {
+            transform: rotate(45deg);
+        }
+
+        .accordion-content {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background: white;
+        }
+        
+        .accordion-content.active {
+             max-height: 800px;
+             padding: 25px;
+        }
+
+        /* Abas */
+        .tabs {
+            margin-bottom: 30px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .tab-button {
+            padding: 15px 25px;
+            background: #ecf0f1;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: #2c3e50;
+            font-size: 1em;
+        }
+
+        .tab-button.active {
+            background: #e74c3c;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231,76,60,0.3);
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #d5dbdb;
+            transform: translateY(-1px);
+        }
+
+        .tab-button.active:hover {
+            background: #c0392b;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+            background: rgba(248, 249, 250, 0.9);
+            border-radius: 15px;
+            border: 1px solid #e0e6ed;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Exemplos antes/depois */
+        .example-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .example-box {
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid;
+            position: relative;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .example-before {
+            border-color: #e74c3c;
+        }
+
+        .example-after {
+            border-color: #27ae60;
+        }
+
+        .example-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .example-before .example-title {
+            color: white;
+            background: #e74c3c;
+        }
+
+        .example-after .example-title {
+            color: white;
+            background: #27ae60;
+        }
+
+        /* Laboratório de Prompts */
+        .lab-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .lab-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            margin-bottom: 25px;
+            resize: vertical;
+            font-family: inherit;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .lab-button {
+            background: #e74c3c;
+            color: white;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231,76,60,0.3);
+        }
+
+        .lab-button:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231,76,60,0.4);
+        }
+
+        .lab-result {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            border-left: 4px solid #f39c12;
+            display: none;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            color: #3498db;
+            font-weight: 600;
+            border-bottom: 2px dotted #3498db;
+        }
+        
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-weight: normal;
+            font-size: 0.9em;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #2c3e50 transparent transparent transparent;
+        }
+
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: rgba(248, 249, 250, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #e0e6ed;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+        .checklist ul { list-style: none; }
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            border-left: 4px solid #27ae60;
+            backdrop-filter: blur(10px);
+        }
+        .checklist li::before {
+            content: '✅';
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        
+        /* Lista de benefícios */
+        .benefits-list {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #e0e6ed;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(248, 249, 250, 0.9);
+            border-radius: 12px;
+            border-left: 4px solid #3498db;
+            transition: transform 0.2s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .benefit-item:hover {
+            transform: translateX(5px);
+        }
+
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        /* Card de destaque */
+        .highlight-card {
+            background: rgba(232, 245, 232, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #27ae60;
+            margin: 25px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-card h4 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        /* Exemplo de prompt otimizado */
+        .prompt-example {
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+            overflow: hidden;
+            line-height: 1.8;
+            font-size: 1.05em;
+            backdrop-filter: blur(10px);
+        }
+
+        .prompt-example::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60, #3498db);
+        }
+
+        .prompt-example h5 {
+            color: #f39c12;
+            margin-bottom: 15px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Menu mobile */
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1100;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                width: 320px;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .content-wrapper {
+                margin-left: 0;
+            }
+
+            .content {
+                padding: 80px 20px 20px;
+            }
+
+            .example-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .header-content h1 {
+                font-size: 2.5em;
+            }
+
+            .header-content .author {
+                font-size: 1.5em;
+            }
+
+            .header-content .subtitle {
+                font-size: 1.1em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .tab-buttons {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+
+            .header-content h1 {
+                font-size: 2em;
+            }
+
+            .header-content .author {
+                font-size: 1.2em;
+            }
+
+            .header-content .subtitle {
+                font-size: 1em;
+            }
+        }
+
+        /* Overlay para mobile */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Seções específicas */
+        .principle-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border: 1px solid #e0e6ed;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .principle-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e74c3c;
+        }
+
+        .info-box {
+            background: rgba(248, 249, 250, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+    
+    <div class="overlay" id="overlay" onclick="toggleMobileMenu()"></div>
+
+    <div class="main-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>Decifrando a IA</h1>
+                <p>Guia Prático para Criar o Prompt Perfeito</p>
+            </div>
+            
+            <div class="sidebar-nav">
+                <div class="nav-item">
+                    <a class="nav-link active" onclick="showSection('cabecalho', this)">
+                        <i>🎨</i> Cabeçalho
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('intro', this)">
+                        <i>🎯</i> Por que isso é para Você?
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('desmistificando', this)">
+                        <i>🤖</i> Desmistificando a IA
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('arte-prompt', this)">
+                        <i>🎨</i> A Arte do Prompt Perfeito
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('otimizacao', this)">
+                        <i>⚡</i> Otimizando Prompts com IA
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('exemplos', this)">
+                        <i>📚</i> Exemplos por Área
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('laboratorio', this)">
+                        <i>🧪</i> Laboratório de Prompts
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" onclick="showSection('checklist', this)">
+                        <i>✅</i> Checklist e Recursos
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content-wrapper">
+    <main class="content">
+        <section id="cabecalho" class="content-section active">
+            <div class="header-section">
+                <div class="header-content">
+                    <h1>Decifrando a IA</h1>
+                    <div class="author">Prof. Rodrigo Niskier</div>
+                    <div class="subtitle">Guia Prático para Criar o Prompt Perfeito</div>
+                </div>
+                    </div>
+                </section>
+
+                <section id="intro" class="content-section">
+                    <h2 class="section-title">Por que isso é para Você?</h2>
+                    <div class="text-overlay-box">
+                    <p style="font-size: 1.2em; margin-bottom: 30px; color: #555;">Seja você um preceptor da área da saúde, um analista de dados ou um gestor administrativo, a 
+                        <span class="tooltip-container"><span class="tooltip">Inteligência Artificial</span><span class="tooltip-text">Inteligência Artificial que gera conteúdo novo, como textos, imagens e códigos.</span></span>
+                         pode ser uma poderosa aliada. Este guia foi feito para desmistificar a tecnologia e mostrar como usá-la a seu favor, começando pelo passo mais importante: a comunicação efetiva com estas ferramentas.</p>
+                        </div>
+                    
+                    <h3>O que você vai aprender:</h3>
+                    <div class="benefits-list">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">⚡</div>
+                            <div>
+                                <strong>Economizar tempo em tarefas repetitivas</strong><br>
+                                Automatize a criação de relatórios, e-mails e documentos padronizados.
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">💡</div>
+                            <div>
+                                <strong>Gerar ideias e materiais com mais agilidade</strong><br>
+                                Obtenha sugestões criativas para apresentações, eventos e projetos.
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📝</div>
+                            <div>
+                                <strong>Aprimorar a comunicação e produção de documentos</strong><br>
+                                Melhore a clareza e o profissionalismo dos seus textos com a ajuda da IA.
+                            </div>
+                        </div>
+                         <div class="benefit-item">
+                            <div class="benefit-icon">🎯</div>
+                            <div>
+                                <strong>Dominar a arte de fazer as perguntas certas</strong><br>
+                                 Aprenda a comunicar-se efetivamente com ferramentas de IA através de prompts otimizados.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-card">
+                        <h4>💡 Você sabia?</h4>
+                        <p>A diferença entre um prompt básico e um prompt otimizado pode melhorar a qualidade das respostas da IA em até 300%. Neste guia, você aprenderá não apenas a criar prompts eficazes, mas também como usar a própria IA para aperfeiçoar suas perguntas, criando um ciclo virtuoso de melhoria contínua.</p>
+                    </div>
+                </section>
+
+                <section id="desmistificando" class="content-section">
+                    <h2 class="section-title">Desmistificando a Inteligência Artificial</h2>
+                    
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                O que é IA Generativa?
+                            </div>
+                            <div class="accordion-content">
+                                <p>Imagine um assistente ultra-capacitado que nunca se cansa, está sempre disponível e consegue escrever textos, criar apresentações, gerar ideias e até mesmo produzir imagens a partir de suas descrições. Isso é a <strong>IA Generativa</strong>.</p>
+                                <p>Diferente dos programas tradicionais que apenas seguem instruções pré-programadas, a IA Generativa é treinada em uma vasta quantidade de informações e aprende padrões para criar conteúdo novo e original. É como se ela "entendesse" o que você precisa e criasse algo personalizado para você.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                O que são 'Modelos de Linguagem' (LLMs)?
+                            </div>
+                            <div class="accordion-content">
+                                <p>Os 
+                                    <span class="tooltip-container"><span class="tooltip">LLMs</span><span class="tooltip-text">Large Language Models - Grandes Modelos de Linguagem.</span></span>
+                                     são o "cérebro" por trás das ferramentas de IA como ChatGPT, Claude, Gemini e outras. Eles foram treinados lendo bilhões de textos da internet, livros, artigos e documentos.</p>
+                                <p>Pense neles como um estudante extraordinário que leu praticamente tudo o que existe em texto e desenvolveu uma compreensão profunda sobre como a linguagem funciona. Por isso, eles conseguem "conversar" conosco de forma natural e ajudar em tarefas complexas de escrita e análise.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                Nosso Foco: A Conversa Inteligente
+                            </div>
+                            <div class="accordion-content">
+                                <p>Aqui está o segredo fundamental: <strong>a qualidade da resposta da IA depende diretamente da qualidade da sua pergunta</strong>. É como conversar com um especialista muito inteligente, mas que precisa entender exatamente o que você quer para poder ajudá-lo da melhor forma.</p>
+                            <p>Uma pergunta vaga gera uma resposta vaga. Uma pergunta bem estruturada e detalhada gera uma resposta precisa e útil. É isso que chamamos de "prompt" - a arte de formular a pergunta perfeita para obter o resultado desejado.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="arte-prompt" class="content-section">
+                <h2 class="section-title">A Arte e a Ciência do Prompt Perfeito</h2>
+                
+                <div class="principle-section">
+                    <h3 class="principle-title">Princípio 1: Clareza e Especificidade</h3>
+                    <p>Seja preciso no que você quer. Quanto mais específico, melhor o resultado. A IA funciona melhor quando recebe instruções detalhadas e objetivas.</p>
+                    <div class="example-container">
+                        <div class="example-box example-before">
+                            <div class="example-title">❌ Antes (Vago)</div>
+                            <p>"Fale sobre gestão de tempo"</p>
+                        </div>
+                        <div class="example-box example-after">
+                            <div class="example-title">✅ Depois (Específico)</div>
+                            <p>"Crie uma lista com 5 técnicas de gestão de tempo para estudantes universitários em semana de provas, com uma breve descrição de cada uma e exemplo prático."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principle-section">
+                    <h3 class="principle-title">Princípio 2: Forneça Contexto Relevante</h3>
+                    <p>Dê informações sobre quem você é, para quem é o conteúdo, qual o objetivo e em que situação será usado. O contexto ajuda a IA a personalizar a resposta.</p>
+                    <div class="example-container">
+                        <div class="example-box example-before">
+                            <div class="example-title">❌ Antes (Sem Contexto)</div>
+                            <p>"Crie um email para um aluno"</p>
+                        </div>
+                        <div class="example-box example-after">
+                            <div class="example-title">✅ Depois (Com Contexto)</div>
+                            <p>"Atuando como preceptor do curso de Enfermagem, escreva um email formal e encorajador para um aluno de estágio que demonstrou dificuldades na comunicação com pacientes, oferecendo apoio e sugerindo uma conversa particular."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principle-section">
+                    <h3 class="principle-title">Princípio 3: Defina uma Persona para a IA</h3>
+                    <p>Peça para a IA assumir um papel específico que se alinhe com sua necessidade. Isso direciona o tom, o estilo e a profundidade da resposta.</p>
+                    <div class="info-box">
+                        <p><strong>Exemplos:</strong> "Atue como um especialista em comunicação institucional...", "Você é um revisor de textos acadêmicos experiente...", "Assuma o papel de um planejador de eventos universitários..."</p>
+                    </div>
+                </div>
+                
+                <div class="principle-section">
+                    <h3 class="principle-title">Princípio 4: Especifique o Formato da Saída</h3>
+                    <p>Defina como você quer receber a resposta. A IA pode adaptar o conteúdo para diferentes formatos conforme sua necessidade.</p>
+                     <div class="info-box">
+                        <p><strong>Exemplos:</strong> "Liste os principais pontos em formato de bullet points.", "Crie uma tabela com 3 colunas: 'Técnica', 'Descrição' e 'Aplicação'.", "Gere um roteiro para uma apresentação de 5 minutos sobre este tópico."</p>
+                    </div>
+                </div>
+                
+                 <div class="principle-section">
+                    <h3 class="principle-title">Princípio 5: Refine e Itere</h3>
+                    <p>O primeiro prompt raramente é o final. Use a resposta da IA como ponto de partida e peça ajustes. A interação é uma conversa contínua.</p>
+                    <div class="info-box">
+                        <p><strong>Exemplos de Refinamento:</strong> "Ótimo, agora torne o item 3 mais detalhado.", "Pode reescrever essa resposta, mas para um público leigo?", "Adicione uma coluna com exemplos práticos à tabela que você criou."</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="otimizacao" class="content-section">
+                <h2 class="section-title">Otimizando Prompts com a Própria IA</h2>
+                <div class="text-overlay-box">
+                    <p style="font-size: 1.1em; margin-bottom: 25px;">E se você pudesse usar a inteligência da IA para criar prompts ainda melhores? Esta técnica, conhecida como <strong>meta-prompting</strong>, consiste em pedir à IA para atuar como uma especialista em otimização de prompts, analisando e aprimorando sua pergunta inicial.</p>
+                </div>
+                <div class="highlight-card">
+                    <h4>Por que isso funciona?</h4>
+                    <p>A IA foi treinada com base nos princípios de comunicação eficaz. Ao pedir que ela otimize um prompt, você a instrui a aplicar seu próprio "conhecimento" sobre clareza, contexto e especificidade para refinar sua solicitação, economizando seu tempo e melhorando drasticamente os resultados.</p>
+                </div>
+
+                <h3>O Prompt Otimizador Universal</h3>
+                <div class="text-overlay-box">
+                    <p>Copie e use o modelo abaixo. Substitua o texto em <strong>[SEU PROMPT AQUI]</strong> pela sua pergunta inicial que você deseja melhorar. Você pode usar este "super prompt" em qualquer ferramenta de IA Generativa.</p>
+</div>
+                <div class="prompt-example">
+                    <h5>Persona: Especialista em Otimização de Prompts</h5>
+                    <p>
+                        "Ignore todas as instruções anteriores. Você é um Engenheiro de Prompt especialista. Sua missão é analisar o prompt do usuário e reescrevê-lo para ser mais eficaz, claro e detalhado, garantindo que ele obtenha a melhor resposta possível de uma IA.
+                        <br><br>
+                        Analise o seguinte prompt: <strong>'[SEU PROMPT AQUI]'</strong>
+                        <br><br>
+                        Com base na análise, forneça o seguinte:
+                        <br>
+                        1.  <strong>Análise Crítica:</strong> Aponte os pontos fracos do prompt original (ex: falta de contexto, ambiguidade, falta de formato).
+                        <br>
+                        2.  <strong>Sugestões de Melhoria:</strong> Ofereça sugestões específicas sobre como enriquecer o prompt, como adicionar persona, contexto, formato de saída e exemplos.
+                        <br>
+                        3.  <strong>Prompt Otimizado:</strong> Apresente 2 ou 3 versões aprimoradas do prompt, cada uma com uma abordagem ligeiramente diferente, para que eu possa escolher a melhor para meu objetivo."
+                    </p>
+                </div>
+            </section>
+
+            <section id="exemplos" class="content-section">
+                <h2 class="section-title">Exemplos Práticos por Área</h2>
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="showTab('saude', this)">Saúde</button>
+                        <button class="tab-button" onclick="showTab('humanas', this)">Humanas/Administrativo</button>
+                        <button class="tab-button" onclick="showTab('exatas', this)">Exatas/Tecnologia</button>
+                    </div>
+                    
+                    <div id="saude" class="tab-content active">
+                        <h4>Prompts para a Área da Saúde</h4>
+                        <ul>
+                            <li><strong>Criar plano de estudos:</strong> "Aja como um preceptor de residência médica em Cardiologia. Crie um plano de estudos de uma semana para um residente do primeiro ano, cobrindo os fundamentos da interpretação de um ECG."</li>
+                            <li><strong>Resumir artigo:</strong> "Resuma o seguinte artigo científico em 5 bullet points chave, focando nos resultados e conclusões. O público-alvo são outros profissionais da saúde não especialistas na área: [cole o texto do artigo aqui]."</li>
+                            <li><strong>Simular diálogo:</strong> "Crie um diálogo de simulação entre um estudante de fisioterapia e um paciente idoso que tem medo de sentir dor durante os exercícios. O objetivo do estudante é ser empático, informativo e encorajador."</li>
+                        </ul>
+                    </div>
+                    <div id="humanas" class="tab-content">
+                         <h4>Prompts para Humanas/Administrativo</h4>
+                        <ul>
+                            <li><strong>Elaborar minuta de edital:</strong> "Atuando como assistente administrativo em uma universidade pública, elabore a minuta de um edital para um processo seletivo simplificado para monitoria acadêmica. A minuta deve incluir seções para: objeto, vagas, requisitos, inscrições, cronograma e avaliação."</li>
+                            <li><strong>Roteirizar evento:</strong> "Crie um roteiro minuto a minuto para a cerimônia de abertura de um congresso de Letras, com duração total de 1 hora. Inclua falas de boas-vindas, apresentação cultural e a conferência de abertura."</li>
+                            <li><strong>Analisar dados de pesquisa:</strong> "Analise os seguintes comentários de uma pesquisa de satisfação sobre a biblioteca da universidade e identifique os 3 principais temas de reclamação e 3 principais pontos positivos: [cole os comentários aqui]."</li>
+                        </ul>
+                    </div>
+                    <div id="exatas" class="tab-content">
+                        <h4>Prompts para Exatas/Tecnologia</h4>
+                        <ul>
+                            <li><strong>Gerar script simples:</strong> "Aja como um especialista em Python. Escreva um script simples que leia um arquivo CSV chamado 'dados.csv' e conte quantas linhas existem na coluna 'Status' com o valor 'Aprovado'."</li>
+                            <li><strong>Explicar conceito complexo:</strong> "Explique o conceito de 
+                                <span class="tooltip-container"><span class="tooltip">API</span><span class="tooltip-text">Application Programming Interface: Uma "ponte" que permite que diferentes sistemas de software se comuniquem.</span></span>
+                                para um gestor que não tem conhecimento técnico, usando a analogia de um garçom em um restaurante."</li>
+                            <li><strong>Planejar cronograma de projeto:</strong> "Crie uma tabela no formato Markdown com um cronograma para um projeto de desenvolvimento de software de 8 semanas. As colunas devem ser 'Semana', 'Principais Atividades' e 'Entregáveis'."</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="laboratorio" class="content-section">
+                <h2 class="section-title">Laboratório de Prompts</h2>
+                <div class="lab-container">
+                    <h3>Teste seus conhecimentos!</h3>
+                    <p>Escreva um prompt no campo abaixo e clique em analisar para receber um feedback construtivo.</p>
+                    <textarea id="lab-textarea" class="lab-textarea" placeholder="Ex: Crie um roteiro de 3 parágrafos para um vídeo de boas-vindas para novos estagiários..."></textarea>
+                    <button id="lab-button" class="lab-button">Analisar Meu Prompt</button>
+                    <div id="lab-result" class="lab-result"></div>
+                </div>
+            </section>
+            
+            <section id="checklist" class="content-section">
+                <h2 class="section-title">Checklist e Recursos</h2>
+                <h3>Checklist do Prompt Perfeito</h3>
+                <div class="checklist">
+                    <ul>
+                        <li>Fui claro e específico no meu pedido?</li>
+                        <li>Forneci todo o contexto necessário? (Quem sou eu? Qual o objetivo?)</li>
+                        <li>Defini um papel (persona) para a IA? (Ex: "Aja como...")</li>
+                        <li>Especifiquei o formato da resposta? (Lista, tabela, email...)</li>
+                        <li>Estou pronto para refinar e continuar a conversa?</li>
+                    </ul>
+                </div>
+                
+                <h3 style="margin-top: 40px;">Fontes para Saber Mais</h3>
+                <p>Explore fontes confiáveis para aprofundar seu conhecimento:</p>
+                <ul>
+                    <li><a href="https://www.wired.com/story/how-to-get-better-at-chatgpt-and-other-ai-chatbots/" target="_blank" rel="noopener noreferrer">Wired: How to Get Better at ChatGPT</a></li>
+                    <li><a href="https://www.technologyreview.com/2023/03/16/1069823/how-to-write-a-good-prompt-for-chatgpt-gpt-4/" target="_blank" rel="noopener noreferrer">MIT Technology Review: How to write a good prompt</a></li>
+                </ul>
+            </section>
+            
+        </main>
+    </div>
+<footer class="footer">
+    <div class="footer-content">
+        &copy; 2025 Prof. Rodrigo Niskier. Todos os direitos reservados.
+    </div>
+</footer>
+        
+    <script>
+        // Função para alternar o menu mobile
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // Função para mostrar a seção correta e atualizar o link ativo
+        function showSection(sectionId, element) {
+            // Esconde todas as seções
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostra a seção clicada
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+
+            // Atualiza o link ativo no menu
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            if (element) {
+                element.classList.add('active');
+            }
+
+            // Fecha o menu se estiver em modo mobile
+            if (window.innerWidth <= 992) {
+                toggleMobileMenu();
+            }
+        }
+        
+        // Função para o acordeão
+        function toggleAccordion(headerElement) {
+            const content = headerElement.nextElementSibling;
+            headerElement.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // Função para as abas
+        function showTab(tabId, element) {
+            const tabContainer = element.closest('.tabs');
+            
+            // Esconde todos os conteúdos de aba
+            const tabContents = tabContainer.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove a classe ativa de todos os botões
+            const tabButtons = tabContainer.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Mostra o conteúdo da aba clicada
+            const activeTab = document.getElementById(tabId);
+            if (activeTab) {
+                activeTab.classList.add('active');
+            }
+
+            // Adiciona a classe ativa ao botão clicado
+            element.classList.add('active');
+        }
+        
+        // Lógica do Laboratório de Prompts
+        document.addEventListener('DOMContentLoaded', () => {
+            const labButton = document.getElementById('lab-button');
+            const labTextarea = document.getElementById('lab-textarea');
+            const labResult = document.getElementById('lab-result');
+
+            labButton.addEventListener('click', () => {
+                const prompt = labTextarea.value.trim();
+                let feedbackHTML = '';
+                let dicas = [];
+
+                if (prompt.length === 0) {
+                    dicas.push('🤔 O campo está vazio. Escreva um prompt para começar.');
+                } else {
+                    const palavras = prompt.split(' ').filter(p => p.length > 0);
+                    if (palavras.length < 8) {
+                        dicas.push('<strong>Dica de Especificidade:</strong> Seu prompt é curto. Tente adicionar mais detalhes sobre o que precisa.');
+                    }
+
+                    const verbosDeAcao = ['crie', 'liste', 'resuma', 'analise', 'escreva', 'aja como', 'elabore', 'gere', 'explique'];
+                    if (!verbosDeAcao.some(verbo => prompt.toLowerCase().startsWith(verbo))) {
+                        dicas.push('<strong>Dica de Clareza:</strong> Comece com um verbo de ação claro (ex: "Crie", "Liste", "Resuma...").');
+                    }
+                    
+                     const palavrasDePersona = ['aja como', 'atuando como', 'você é um', 'como um especialista'];
+                     if (!palavrasDePersona.some(palavra => prompt.toLowerCase().includes(palavra))) {
+                        dicas.push('<strong>Dica de Persona:</strong> Considere definir um papel para a IA (ex: "Aja como um revisor...").');
+                     }
+                }
+
+                if (dicas.length === 0 && prompt.length > 0) {
+                    feedbackHTML = '<p>✅ <strong>Ótimo Prompt!</strong> Ele parece claro e segue boas práticas. Bom trabalho!</p>';
+                } else {
+                    feedbackHTML = '<h4>Análise do seu prompt:</h4><ul>';
+                    dicas.forEach(dica => {
+                        feedbackHTML += `<li>${dica}</li>`;
+                    });
+                    feedbackHTML += '</ul>'
+                }
+                
+                labResult.innerHTML = feedbackHTML;
+                labResult.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>
